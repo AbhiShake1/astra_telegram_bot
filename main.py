@@ -1,26 +1,19 @@
 from telebot import TeleBot
 import requests
 
-API_KEY = "2084467577:AAEubFCpL_iPECUTtJo1UySNRCv3IsuK6x8"
-
-bot = TeleBot(API_KEY)
+bot = TeleBot(__name__)
+bot.config["api_key"] = "2084467577:AAEubFCpL_iPECUTtJo1UySNRCv3IsuK6x8"
 
 
 def get_reply(message) -> str:
-    message = message.text
-    reply = requests.get(f"https://astra-backend-intents.herokuapp.com/{message}")
-    return reply.text
+    message = message.get("text")
+    reply = requests.get(f"https://astra-backend-intents.herokuapp.com/{message}").text
+    return reply
 
 
-@bot.message_handler(commands=["about"])
-def talk_about_bot(message):
-    bot.reply_to(message, "I'm Astra. I was created by Abhi. "
-                          "My name and behaviour is inspired by Astrid S who is the favourite singer of Abhi.")
+@bot.route("(?!/).+")
+def talk(message) -> None:
+    bot.send_message(message["chat"]["id"], get_reply(message))
 
 
-@bot.message_handler(func=lambda _: True)
-def talk(message):
-    bot.send_message(message.chat.id, get_reply(message))
-
-
-bot.polling()
+bot.poll()
