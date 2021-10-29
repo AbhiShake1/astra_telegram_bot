@@ -1,2 +1,2 @@
 requests~=2.26.0
-pyTelegramBotAPI
+git+https://github.com/eternnoir/pyTelegramBotAPI.git

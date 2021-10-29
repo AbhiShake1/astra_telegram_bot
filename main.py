@@ -1,7 +1,7 @@
 from telebot import TeleBot
 import requests
 
-bot = TeleBot("2006661177:AAG8sZLX4V5YzUKa_XAehfi2uRY6NgcrK4s")
+bot = TeleBot("2084467577:AAEubFCpL_iPECUTtJo1UySNRCv3IsuK6x8")
 
 
 def get_reply(message) -> str:
